@@ -64,7 +64,7 @@ b.安装步骤:首先下载代码仓库git clone https://github.com/BINE022/EEGP
 
 a.首先对BCIC2A数据集预处理：原始参数：22 通道、采样率 250Hz、4s / 试次，预处理：0-38Hz 带通滤波（强化运动想象相关脑电成分）；执行 EA 归一化（Euclidean space data alignment），降低被试间差异；通道映射：通过自适应空间滤波器，将 22 通道映射为模型支持的 10-20 系统标准通道。命令:cd downstream/Data_process，python process_function.py。预处理后会生成BCIC_2a_0_38HZ文件夹。
 
-b.进行下游任务linear_probe_LaBraM_BCIC2A，运行命令cd downstream，python linear_probe_LaBraM_BCIC2A.py。
+b.预训练模型LaBraM 下载与放置：downstream/Modules/LaBraM/labram-base.pth。进行下游任务linear_probe_LaBraM_BCIC2A，运行命令cd downstream，python linear_probe_LaBraM_BCIC2A.py，受试者一共9人，每人100轮。
 
 六、测试/运行结果截图
 

@@ -1,4 +1,4 @@
-一、论文总结：
+三、论文总结：
 
 1.EEGPT用于EEG信号通用可靠表示的预训练变换器这篇论文遇到了以下问题：
 a.信号本身特性限制：EEG 信号信噪比（SNR）极低、个体间变异性大、通道配置不匹配，导致难以提取鲁棒且通用的特征表征；
@@ -23,16 +23,40 @@ d.计算与适配效率低：传统模型将空间和时间信息耦合处理，
 ![](https://github.com/su123289/EEGPT/blob/main/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251207152426_486_2.png)
 ![](https://github.com/su123289/EEGPT/blob/main/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251207153256_489_2.png)
 
-二、论文公式和程序代码文件名 行数对照表
+四、论文公式和程序代码文件名 行数对照表
 
 公式 (1)  传统掩码自编码器损失（输入掩码→编码器→解码器重构）  modeling_pretraining.py  代码行数276-290
-公式 (2)  双自监督损失（新增时空表示对齐分支）               modeling_pretraining.py  代码行数400-500     
+
+公式 (2)  双自监督损失（新增时空表示对齐分支）               modeling_pretraining.py  代码行数400-500
+
 公式 (3)  编码器输出enc_j（处理掩码 token，整合空间信息）    modeling_pretraining.py  代码行数680-720
+
 公式 (4)  预测器输出pred_j（结合旋转位置嵌入 RoPE）          modeling_pretraining.py  代码行数450-480
+
 公式 (5)  动量编码器输出menc_j（参数更新因子 τ=0.01）        engine_pretraining.py    代码行数150-160
+
 公式 (6)  时空对齐损失L_A（MSE + 层归一化 LN）               engine_pretraining.py    代码行数85-90
+
 公式 (7)  重构器输出rec_{u,t}（编码器 - 重构器跳跃连接）      modeling_pretraining.py  代码行数360-390
+
 公式 (8)  掩码重构损失L_R（MSE）                            engine_pretraining.py    代码行数90-95
+
 公式 (9)  总预训练损失L = L_A + L_R                         engine_pretraining.py    代码行数95-100
+
 公式 (10) 局部时空嵌入（分块p_{i,j}+ 通道嵌入Embed(p_{i,j})） modeling_pretraining.py  代码行数315-320；630
+
 公式 (11) 通道嵌入映射ℜ: c_i → ζ_i（灵活适配多数据集通道）    modeling_pretraining.py  代码行数630-635
+
+五、安装说明, 数据集准备，依赖说明，运行配置命令行等。
+1.安装说明：
+
+a.环境要求：Python 3.8-3.10（推荐 3.9）；CUDA 11.3+（支持 GPU 加速，单卡 / 多卡均可，论文使用 8 张 NVIDIA 3090）；PyTorch 1.10.0+；PyTorch Lightning 1.6.0+；
+b.安装步骤:首先下载代码仓库git clone https://github.com/BINE022/EEGPT.git，cd EEGPT。然后创建虚拟环境conda create -n eegpt python=3.9，conda activate eegpt。最后安装依赖包pip install requirements,有不兼容的库需要先卸载找到兼容的库安装。
+
+2.数据集准备：论文里有预处理数据集PhysioMI、HGD、TSU、SEED、M3CV和下游任务数据集BCIC-2A、BCIC-2B、Sleep-EDFx、KaggleERN、PhysioP300、TUAB、TUEV。这里我准备了BCIC-2A数据集，下载地址在https://www.bbci.de/competition/iv/#datasets。
+
+3.核心依赖包功能说明：PyTorch1.10.0+ ——模型构建与张量计算；PyTorch Lightning1.6.0+ ——训练流程管理（分布式训练、日志记录）；MNE1.3.1——脑电图数据读取、滤波、预处理；Braindecode0.7.1——EEG 信号窗口划分、特征提取辅助；Torcheeg1.0.0——通道映射、EEG 专用数据增强；Timm0.6.12——Transformer 模型组件复用（如注意力机制）；Scikit-learn1.2.2——评估指标计算（BAC、F1、Kappa）
+
+4.运行配置命令行：
+
+a.

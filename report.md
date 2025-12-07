@@ -67,6 +67,6 @@ a.首先对BCIC2A数据集预处理：原始参数：22 通道、采样率 250Hz
 b.预训练模型LaBraM 下载与放置：downstream/Modules/LaBraM/labram-base.pth。进行下游任务linear_probe_LaBraM_BCIC2A，运行命令cd downstream，python linear_probe_LaBraM_BCIC2A.py，受试者一共9人，每人100轮。
 
 六、测试/运行结果截图
-！[](https://github.com/su123289/EEGPT/blob/main/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251206210431_482_2.png)
+![](https://github.com/su123289/EEGPT/blob/main/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251206210431_482_2.png)
 ![](https://github.com/su123289/EEGPT/blob/main/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251207175207_491_2.png)
 ![](https://github.com/su123289/EEGPT/blob/main/images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20251207175236_492_2.png)
